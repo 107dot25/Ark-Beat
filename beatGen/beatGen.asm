@@ -461,7 +461,7 @@ goto_intrf_start	proc
 	mov intrf, 0
 	invoke end_music
 	invoke get_music_list
-	invoke set_music
+	invoke set_music 
 	ret
 goto_intrf_start	endp
 
@@ -498,6 +498,8 @@ switch_music_next	endp
 restart_record		proc
 	invoke end_music
 	mov musicStop, 0
+	mov firstNote1, 1
+	mov firstNote2, 1
 	invoke init_note_file
 	invoke start_music
 	ret
@@ -508,12 +510,15 @@ record_upper_track	proc
     push eax
     mov eax, frame
     sub eax, 490
+	cmp	eax, 0
+	jng	not_record_upper
 	.if	firstNote1 == 1
 		invoke fprintf, hFile1,offset szRecordFormatF, eax
 		mov firstNote1, 0
 	.else
 		invoke fprintf, hFile1, offset szRecordFormat, eax
 	.endif
+not_record_upper:
 	pop eax
 	ret
 record_upper_track	endp
@@ -533,12 +538,15 @@ record_lower_track	proc
 	push eax
     mov eax, frame
 	sub eax, 470
+	cmp eax, 0
+	jng not_record_lower
 	.if	firstNote2 == 1
 		invoke fprintf, hFile2,offset szRecordFormatF, eax
 		mov firstNote2, 0
 	.else
 		invoke fprintf, hFile2, offset szRecordFormat, eax
 	.endif
+not_record_lower:
 	pop eax
 	ret
 record_lower_track	endp
