@@ -19,6 +19,7 @@ fopen	proto c:dword,:dword
 fgets	proto c:dword,:dword,:dword
 fclose  proto c:dword
 fprintf proto c:dword,:dword,:vararg
+fflush	proto c:dword
 strcmp	proto c:dword,:dword
 strcat  proto c:dword,:dword
 strlen	proto c:dword
@@ -514,9 +515,11 @@ record_upper_track	proc
 	jng	not_record_upper
 	.if	firstNote1 == 1
 		invoke fprintf, hFile1,offset szRecordFormatF, eax
+		invoke fflush, hFile1
 		mov firstNote1, 0
 	.else
 		invoke fprintf, hFile1, offset szRecordFormat, eax
+		invoke fflush, hFile1
 	.endif
 not_record_upper:
 	pop eax
@@ -542,9 +545,11 @@ record_lower_track	proc
 	jng not_record_lower
 	.if	firstNote2 == 1
 		invoke fprintf, hFile2,offset szRecordFormatF, eax
+		invoke fflush, hFile2
 		mov firstNote2, 0
 	.else
 		invoke fprintf, hFile2, offset szRecordFormat, eax
+		invoke fflush, hFile2
 	.endif
 not_record_lower:
 	pop eax
