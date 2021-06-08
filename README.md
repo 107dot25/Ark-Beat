@@ -105,7 +105,7 @@ Ark Beat
 + ***J / K / L*** : record notes on the lower track
   + The button with **down arrow** reacts
 
-After the record is down, just play it with ***Ark Beat*** to check your own masterpiece!
+After the record is down, just play it with ***Ark Beat*** to try out your own masterpiece!
 
 ## The songs just won't play?
 You may encounter the issue that some songs in the format of mp3 or wav just won't play in ***Ark Beat***, which once bothered us so much.
