@@ -23,8 +23,6 @@ printf	proto c:dword,:vararg
 atoi	proto c:ptr byte
 feof    proto c:dword
 
-
-
 .data
 ; intrf(interface):
 ;	0:start intrf;

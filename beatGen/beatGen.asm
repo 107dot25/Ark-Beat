@@ -27,8 +27,8 @@ printf	proto c:dword,:vararg
 atoi	proto c:ptr byte
 feof    proto c:dword
 get_music_list	proto stdcall
-draw_upper_button   proto  stdcall : dword
-draw_lower_button   proto  stdcall : dword
+draw_upper_button   proto  
+draw_lower_button   proto  
 .data
 ;resources
 IDI_GAMEICO		 equ	101
@@ -411,8 +411,8 @@ draw_intrf_record	proc stdcall hWnd:dword
 	mov bmpstartbkgndf, eax
 	invoke BitBlt, hhDc, 0, 0, 640, 360, @thDc, 0, 0, SRCCOPY
 
-	invoke draw_upper_button, hWnd
-	invoke draw_lower_button, hWnd
+	invoke draw_upper_button
+	invoke draw_lower_button
 
 	invoke  BitBlt,@hDc,0,0,640,360,hhDc,0,0,SRCCOPY
 	invoke	SelectObject, @thDc, bmpstartbkgndf
@@ -527,8 +527,7 @@ not_record_upper:
 record_upper_track	endp
 
 ; draw_upper_button : draw the upper button
-draw_upper_button   proc  stdcall hWnd:dword
-	local   @hhDc:HDC
+draw_upper_button   proc  
 	.if upperState == 1
 		invoke DrawIconEx, hhDc,140,100, upperButton+4, 128,128,0,NULL,DI_NORMAL
 	.else 
@@ -557,8 +556,7 @@ not_record_lower:
 record_lower_track	endp
 
 ; draw_lower_button : draw the lower button
-draw_lower_button   proc  stdcall hWnd:dword
-	local   @hhDc:HDC
+draw_lower_button   proc  
 	.if lowerState == 1
 		invoke DrawIconEx, hhDc,360,100, lowerButton+4, 128,128,0,NULL,DI_NORMAL
 	.else 

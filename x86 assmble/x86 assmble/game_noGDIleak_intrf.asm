@@ -152,7 +152,7 @@ szScoreFormat   byte    " SCORE: %d ", 0ah, " COMBO: %d ", 0
 ;szFmt	        byte    '%d',0ah,0
 ;szContent       byte    "this is first window",0
 szWindowClass   byte    "New_Window",0
-szTitle         byte    "Ark Beat",0
+szTitle         byte    "Ark Dash",0
 ;szButton	    byte	"Button",0
 ;szButtonTitle	byte	"&Compare",0
 ;szText	        byte	"Edit",0
@@ -654,20 +654,16 @@ init_on_create	proc stdcall hWnd:dword
 init_on_create	endp
 
 ; drawobject_hit : draw hit icon : perfect, great, miss
-drawobject_hit            proc    stdcall hWnd:dword
+drawobject_hit            proc    
         local   @stPs:PAINTSTRUCT
         local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
         local   @x:dword
         local   @ratio:dword
 
         push eax
         push ebx
-        ;invoke  BeginPaint,hWnd,addr @stPs
         cmp ComboState, -1
         jz  not_drawhit
-        ;mov @hDc,eax
         mov ebx,hit_frame
         mov eax,5
         mul ebx
@@ -681,12 +677,10 @@ drawobject_hit            proc    stdcall hWnd:dword
         mov ebx, 4
         mul ebx
         invoke  DrawIconEx, hhDc,@x,95, icohit[eax], @ratio,@ratio,0,NULL,DI_NOMIRROR or DI_NORMAL
-		;invoke  DrawIconEx, @hDc,@x,95, icohit[eax], @ratio,@ratio,0,NULL,DI_NOMIRROR or DI_NORMAL
         .if hit_frame > 0
             sub hit_frame, 1
         .endif
         not_drawhit:
-        ;invoke  EndPaint,hWnd,addr @stPs
         pop ebx
         pop eax
         ret
@@ -763,12 +757,7 @@ refresh_on_timer	proc stdcall hWnd:dword, hStMsg:dword
 refresh_on_timer	endp
 
 ; drawobject_up : draw object in the upper case
-drawobject_up              proc    stdcall hWnd:dword, x:dword
-        local   @stPs:PAINTSTRUCT
-        local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
-
+drawobject_up              proc   stdcall x:dword
         push eax
 
         mov eax, x
@@ -781,11 +770,7 @@ drawobject_up              proc    stdcall hWnd:dword, x:dword
 drawobject_up endp
 
 ; drawobject_down : draw object in the lower case
-drawobject_down              proc    stdcall hWnd:dword, x:dword
-        local   @stPs:PAINTSTRUCT
-        local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
+drawobject_down             proc   stdcall x:dword
         push eax
 
         mov eax, x
@@ -797,12 +782,7 @@ drawobject_down              proc    stdcall hWnd:dword, x:dword
         ret
 drawobject_down endp
 
-drawendingmark              proc    stdcall hWnd:dword
-        local   @stPs:PAINTSTRUCT
-        local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
-		local	@pauseTime:dword
+drawendingmark              proc  
         push eax
      
 		.if end_pos < 165
@@ -819,20 +799,13 @@ drawendingmark              proc    stdcall hWnd:dword
         ret
 drawendingmark endp
 ;draw stop icon
-draw_stopmenu proc stdcall hWnd:dword
-	local   @hDc:HDC
-    local   @hhDc:HDC
+draw_stopmenu proc 
 	invoke  DrawIconEx, hhDc,192,40,icostop,256,256,0,NULL,DI_NOMIRROR or DI_NORMAL
 	ret
 draw_stopmenu endp
 
 ; drawobject_char2 : draw character in the lower case
-drawobject_char2             proc    stdcall hWnd:dword
-        local   @stPs:PAINTSTRUCT
-        local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
-
+drawobject_char2             proc   
         push eax
         push ebx
 
@@ -849,11 +822,7 @@ drawobject_char2             proc    stdcall hWnd:dword
 drawobject_char2 endp
 
 ; drawobject_char1 : draw character in the upper case
-drawobject_char1             proc    stdcall hWnd:dword
-        local   @stPs:PAINTSTRUCT
-        local   @stRect:RECT
-        local   @hDc:HDC
-        local   @hhDc:HDC
+drawobject_char1             proc    
 
         push eax
         push ebx
@@ -871,7 +840,7 @@ drawobject_char1             proc    stdcall hWnd:dword
 drawobject_char1 endp
 
 ; draw_music_display : draw the music display section
-draw_music_display	proc stdcall hWnd:dword
+draw_music_display	proc 
 	local	@lhsId:dword
 	local	@rhsId:dword
 	local	@curMusic:dword
@@ -984,7 +953,7 @@ draw_intrf_music	proc stdcall hWnd:dword
 	invoke BitBlt, hhDc, 0, 0, 640, 360, @thDc, 0, 0, SRCCOPY
 
 	; draw music selection section
-	invoke draw_music_display, hWnd
+	invoke draw_music_display
 
 	; draw to current window
 	invoke BitBlt, @hDc, 0, 0, 640, 360, hhDc, 0, 0, SRCCOPY
@@ -1053,8 +1022,8 @@ draw_intrf_game	proc stdcall hWnd:dword
 	invoke SelectObject, hhDc, @hOldFont
 	invoke DeleteObject, @hNewFont
 
-	invoke  drawobject_char1, hWnd
-	invoke  drawobject_char2 ,hWnd
+	invoke  drawobject_char1
+	invoke  drawobject_char2
 	push edx
 	push eax
 	; draw object in the upper case
@@ -1100,7 +1069,7 @@ check_object_up:
 		ja end_check_up
 
 		;invoke  InvalidateRect,hWnd,NULL,FALSE
-		invoke  drawobject_up, hWnd, ItemQueue1[edi*4]
+		invoke  drawobject_up, ItemQueue1[edi*4]
 		inc edi
 		mov eax, ItemQueue1[edi*4]
 		push eax
@@ -1116,7 +1085,7 @@ check_object_down:
         cmp eax, frame
 		ja end_check_down
 		;invoke  InvalidateRect,hWnd,NULL,FALSE
-		invoke  drawobject_down, hWnd, ItemQueue2[edi*4]
+		invoke  drawobject_down, ItemQueue2[edi*4]
 
 		inc edi
 		mov eax, ItemQueue2[edi*4]
@@ -1132,13 +1101,13 @@ draw_intrf_game_end:
 			.if end_pos == -1
 					mov end_pos,0
 			.endif
-			invoke drawendingmark, hWnd
+			invoke drawendingmark
 		.else
 			; draw hit icon
-			invoke  drawobject_hit, hWnd
+			invoke  drawobject_hit
 			;draw stop menu
 			.if gamePause == 1
-				invoke draw_stopmenu, hWnd
+				invoke draw_stopmenu
 			 .endif
 		.endif
 		;invoke  BitBlt,@hDc,0,50,640,250,hhDc,0,50,SRCCOPY
@@ -1167,7 +1136,7 @@ switch_game_pause proc
 switch_game_pause endp
 
 ; getscore1 : compute score in the upper case
-getscore1	proc  stdcall hWnd:dword
+getscore1	proc  
 	push eax
 	push ebx   
 	push edx
@@ -1223,7 +1192,7 @@ end_fu:
 getscore1	endp
 
 ; getscore2 : compute score in the lower case
-getscore2	proc  stdcall hWnd:dword
+getscore2	proc  
 	push eax
 	push ebx   
 	push edx
@@ -1450,7 +1419,7 @@ _WindowCallbackProc	proc uses ebx edi esi, hWnd, uMsg, wParam, lParam
 			; up track hit: F/D/S
 			.if (ebx == 'F') || (ebx == 'D') || (ebx == 'S')
 				.if enableUpperKey == 1
-					invoke getscore1, hWnd
+					invoke getscore1
 					mov	hit_frame,3
 					invoke hit_music
 					mov enableUpperKey, 0
@@ -1458,7 +1427,7 @@ _WindowCallbackProc	proc uses ebx edi esi, hWnd, uMsg, wParam, lParam
 			; down track hit: J/K/L
 			.elseif (ebx == 'J') || (ebx == 'K') || (ebx == 'L')
 				.if enableLowerKey == 1
-					invoke getscore2, hWnd
+					invoke getscore2
 					mov	hit_frame,3
 					invoke hit_music
 					mov enableLowerKey, 0
