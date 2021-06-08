@@ -110,7 +110,7 @@ After the record is down, just play it with ***Ark Beat*** to check your own mas
 ## The songs just won't play?
 You may encounter the issue that some songs in the format of mp3 or wav just won't play in ***Ark Beat***, which once bothered us so much.
 
-It turned out that, Windows' poor **audio decoder** might be the one to blame.
+It turned out that Windows' poor **audio decoder** might be the one to blame.
 
 Therefore, you are ***highly, highly, highly recommended*** to install third-party decoders like [**LAVFilters**](https://github.com/Nevcairiel/LAVFilters/releases).
 
