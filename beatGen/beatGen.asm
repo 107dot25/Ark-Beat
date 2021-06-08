@@ -382,7 +382,7 @@ draw_intrf_start	proc stdcall hWnd:dword
 	mov @hOldFont, eax
 
 	invoke	wsprintf, offset szMusicTitle, offset szMusicTitleFormat, @curMusic
-	invoke	DrawText, hhDc, @curMusic, -1, addr @rect, DT_CENTER or DT_SINGLELINE or DT_VCENTER
+	invoke	DrawText, hhDc, @curMusic, -1, addr @rect, DT_CENTER or DT_SINGLELINE or DT_VCENTER or DT_NOPREFIX
 	;invoke	printf, offset sztimertest2, eax
 	
 	; delete used font

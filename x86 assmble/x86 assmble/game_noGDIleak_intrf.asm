@@ -905,7 +905,7 @@ draw_music_display	proc
 	mov @hOldFont, eax
 
 	invoke	wsprintf, offset szMusicTitle, offset szMusicTitleFormat, @curMusic
-	invoke	DrawText, hhDc, @curMusic, -1, addr @rect, DT_CENTER or DT_SINGLELINE or DT_VCENTER
+	invoke	DrawText, hhDc, @curMusic, -1, addr @rect, DT_CENTER or DT_SINGLELINE or DT_VCENTER or DT_NOPREFIX
 	;invoke	printf, offset sztimertest2, eax
 	
 	; delete used font
@@ -1016,7 +1016,7 @@ draw_intrf_game	proc stdcall hWnd:dword
 	mov @hOldFont, eax
 
 	invoke  wsprintf,offset szScoreText,offset szScoreFormat, score, Combo
-	invoke	DrawText, hhDc, offset szScoreText, -1, addr @rect, DT_CENTER
+	invoke	DrawText, hhDc, offset szScoreText, -1, addr @rect, DT_CENTER or DT_NOPREFIX
 
 	; delete used font
 	invoke SelectObject, hhDc, @hOldFont
