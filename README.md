@@ -63,7 +63,9 @@ Let's go through all of them.
 
 You could make **notes** for your favourite songs!
 ### Preparations
-The song folder should be as follows:
+**Attention**: Put ***Skadi's workshop.exe*** under the folder ***Ark Beat***, that is, you should keep ***Skadi's workshop.exe*** and ***music*** folder in the same directory
+
+*The song folder should be as follows:*
 ```
 Ark Beat
 └─music
@@ -83,7 +85,7 @@ Ark Beat
 
 ### Work with Skadi
 > ***Skadi's workshop*** is a **beatmap maker** for ***Ark Beat***
-> 
+
 ***Skadi's workshop*** has two interfaces: 
 + **start interface**
 + **record interface**
@@ -106,8 +108,11 @@ Ark Beat
 After the record is down, just play it with ***Ark Beat*** to check your own masterpiece!
 
 ## The songs just won't play?
-Windows' poor **audio decoder** might be the one to blame.
-You are ***highly, highly, highly recommended*** to install third-party decoders like [**LAVFilters**](https://github.com/Nevcairiel/LAVFilters/releases).
+You may encounter the issue that some songs in the format of mp3 or wav just won't play in ***Ark Beat***, which once bothered us so much.
+
+It turned out that, Windows' poor **audio decoder** might be the one to blame.
+
+Therefore, you are ***highly, highly, highly recommended*** to install third-party decoders like [**LAVFilters**](https://github.com/Nevcairiel/LAVFilters/releases).
 
 ## Maintainers
 + [@41889732](https://github.com/41889732)
