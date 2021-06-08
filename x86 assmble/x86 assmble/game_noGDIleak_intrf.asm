@@ -496,6 +496,7 @@ start_music		proc
 
 	invoke mciSendString, offset szOpenHit, NULL, 0, NULL
 	invoke mciSendString, offset szOpenMiss, NULL, 0, NULL
+	invoke mciSendString, offset szOpenAccomp, NULL, 0, NULL
 	ret
 start_music		endp
 
@@ -561,6 +562,8 @@ end_music	proc
 	invoke mciSendString, offset szCloseMusic, NULL, 0, NULL
 	invoke mciSendString, offset szStopHit, NULL, 0, NULL
 	invoke mciSendString, offset szCloseHit, NULL, 0, NULL
+	invoke mciSendString, offset szStopAccomp, NULL, 0, NULL
+	invoke mciSendString, offset szCloseAccomp, NULL, 0, NULL
 	ret
 end_music	endp
 
@@ -1286,6 +1289,9 @@ dir_not_accept:
 get_music_list		endp
 
 goto_intrf_music	proc
+	.if intrf == 2
+		invoke end_music
+	.endif
 	mov intrf, 1
 	invoke get_music_list
 	invoke set_snatch
