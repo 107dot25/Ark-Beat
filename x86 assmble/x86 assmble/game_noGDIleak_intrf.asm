@@ -554,7 +554,7 @@ accomp_music proc
 	ret
 accomp_music endp
 
-; end_music : stop and close all(main, miss and hit) music
+; end_music : stop and close all(main, miss, hit and accomp) music
 end_music	proc
 	invoke mciSendString, offset szStopMiss, NULL, 0, NULL
 	invoke mciSendString, offset szCloseMiss, NULL, 0, NULL
