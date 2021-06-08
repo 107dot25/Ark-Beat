@@ -63,15 +63,8 @@ Let's go through all of them.
 
 You could make **notes** for your favourite songs!
 ### Preparations
-+ A folder put under the ***music*** folder, with name ***foo*** (it's highly recommended to use the song's name) **of your own choice**
-+ A music file named ***foo.mp3*** **or** ***foo.wav*** put under folder ***foo***
-  > Normally, an appropriate song's length should be ***90~150s***. But it's not mandatory.
-+ *(optional)* A cover file named ***foo.ico*** put under folder ***foo***
-+ *(optional)* A snatch file named ***foo.clip.mp3*** put under folder ***foo***
-  > Normally, an appropriate snatch's length should be ***15~25s***. But it's not mandatory.
-
-The ultimate file tree should be as follows:
-```C
+The song folder should be as follows:
+```
 Ark Beat
 └─music
     └─foo
@@ -81,6 +74,12 @@ Ark Beat
         foo.ark1        (to be generated)
         foo.ark2        (to be generated)
 ```
++ A folder put under the ***music*** folder, with name ***foo*** (it's highly recommended to use the song's name) **of your own choice**
++ A music file named ***foo.mp3*** **or** ***foo.wav*** put under folder ***foo***
+  > Normally, an appropriate song's length should be ***90~150s***. But it's not mandatory.
++ *(optional)* A cover file named ***foo.ico*** put under folder ***foo***
++ *(optional)* A snatch file named ***foo.clip.mp3*** put under folder ***foo***
+  > Normally, an appropriate snatch's length should be ***15~25s***. But it's not mandatory.
 
 ### Work with Skadi
 > ***Skadi's workshop*** is a **beatmap maker** for ***Ark Beat***
