@@ -122,4 +122,4 @@ We refer to these games as we are big fans of them.
 + [**Arknights**](https://ak.hypergryph.com/)
 
 ## License
-MIT © [107dot25](https://github.com/107dot25)
+[MIT](https://github.com/107dot25/Ark-Beat/blob/main/LICENSE) © [107dot25](https://github.com/107dot25)
