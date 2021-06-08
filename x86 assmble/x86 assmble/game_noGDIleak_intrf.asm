@@ -110,7 +110,7 @@ FirstItem1  	dword   0
 FirstItem2  	dword   0
 nowItem     	dword   0
 mode	    	byte	"rb", 0	
-refresh	    	dword	25
+refresh	    	dword	16
 frame       	dword   0
 charframe1  	dword   0
 charframe2  	dword   0

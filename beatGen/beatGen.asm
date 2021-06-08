@@ -42,7 +42,7 @@ IDB_BACKGROUND	 equ	109
 ;	1:record intrf;
 ; end intrf
 intrf	dd	0
-refresh dword  60
+refresh dword  8
 frame   dword  0
 ; start intrf elements var
 maxMusicNum		dword	500
