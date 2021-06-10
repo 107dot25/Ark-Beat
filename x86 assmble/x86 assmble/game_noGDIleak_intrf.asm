@@ -152,7 +152,7 @@ szScoreFormat   byte    " SCORE: %d ", 0ah, " COMBO: %d ", 0
 ;szFmt	        byte    '%d',0ah,0
 ;szContent       byte    "this is first window",0
 szWindowClass   byte    "New_Window",0
-szTitle         byte    "Ark Dash",0
+szTitle         byte    "Ark Beat",0
 ;szButton	    byte	"Button",0
 ;szButtonTitle	byte	"&Compare",0
 ;szText	        byte	"Edit",0
