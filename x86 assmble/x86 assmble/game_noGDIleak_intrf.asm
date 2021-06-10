@@ -701,9 +701,9 @@ refresh_on_timer	proc stdcall hWnd:dword, hStMsg:dword
 	.if eax == 0
 		; music stopped
 		mov musicStop, 1
-		.if gamePause == 0
-			invoke	accomp_music
-		.endif
+		;.if gamePause == 0
+		;	invoke	accomp_music
+		;.endif
 	.else
 		invoke get_music_pos
 		;trans music_pos to frame: frame = music_pos/5
@@ -1102,7 +1102,8 @@ draw_intrf_game_end:
 		;draw end icon
 		.if musicStop == 1
 			.if end_pos == -1
-					mov end_pos,0
+				mov end_pos,0
+				invoke	accomp_music
 			.endif
 			invoke drawendingmark
 		.else

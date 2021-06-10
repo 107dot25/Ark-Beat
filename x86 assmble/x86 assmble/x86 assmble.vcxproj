@@ -142,11 +142,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\masm32\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\masm32\lib</AdditionalLibraryDirectories>
       <Profile>true</Profile>
     </Link>
     <MASM>
-      <IncludePaths>D:\masm32\include;D:\masm32\macros</IncludePaths>
+      <IncludePaths>C:\masm32\include;C:\masm32\macros</IncludePaths>
     </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
