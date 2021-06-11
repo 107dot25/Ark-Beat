@@ -64,6 +64,7 @@ intrf	dd	0
 maxMusicNum		dword	500
 dirNameLen		dword	128
 cntMusic		dword	0
+hasMusic		dword	1
 frontMusicId	dword	0
 ; musicExist:
 ;	0:music not exist
@@ -879,6 +880,9 @@ draw_music_display	proc
 	invoke	DestroyIcon, @leftIco
 	invoke	DestroyIcon, @rightIco
 
+	.if hasMusic == 0
+		jmp skip_text
+	.endif
 	; get filename without extension
 	mov eax, frontMusicId
 	mul dirNameLen
@@ -914,6 +918,7 @@ draw_music_display	proc
 	; delete used font
 	invoke SelectObject, hhDc, @hOldFont
 	invoke DeleteObject, @hNewFont
+skip_text:
 	ret
 draw_music_display 	endp
 
@@ -1259,6 +1264,7 @@ get_music_list		proc
 	local	@curMusic:dword
 
 	mov cntMusic, 0
+	mov hasMusic, 1
 	invoke FindFirstFile, offset szMusicDir, addr @ffd
 	mov @hMusicDir, eax
 	.repeat
@@ -1283,6 +1289,9 @@ dir_not_accept:
 		invoke FindNextFile, @hMusicDir, addr @ffd
 	.until eax == 0
 	invoke FindClose, @hMusicDir
+	.if cntMusic == 0
+		mov hasMusic, 0
+	.endif
 	dec cntMusic
 	;invoke printf, offset sztimertests, offset musicList
 	;invoke printf, offset sztimertest2, cntMusic
@@ -1302,16 +1311,20 @@ goto_intrf_music	proc
 goto_intrf_music	endp
 
 switch_music_prev	proc
-	invoke get_pre_id, frontMusicId
-	mov frontMusicId, eax
+	.if hasMusic == 1
+		invoke get_pre_id, frontMusicId
+		mov frontMusicId, eax
+	.endif
 	invoke printf, offset sztimertest2, frontMusicId
 	invoke set_snatch
 	ret
 switch_music_prev	endp
 
 switch_music_next	proc
-	invoke get_nxt_id, frontMusicId
-	mov frontMusicId, eax
+	.if hasMusic == 1
+		invoke get_nxt_id, frontMusicId
+		mov frontMusicId, eax
+	.endif
 	invoke printf, offset sztimertest2, frontMusicId
 	invoke set_snatch
 	ret

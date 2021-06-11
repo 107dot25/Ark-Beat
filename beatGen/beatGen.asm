@@ -48,6 +48,7 @@ frame   dword  0
 maxMusicNum		dword	500
 dirNameLen		dword	128
 cntMusic		dword	0
+hasMusic		dword	1
 frontMusicId	dword	0
 ; musicExist:
 ;	0:music not exist
@@ -111,6 +112,14 @@ firstNote2      dword		1
 ; window
 szWindowClass   byte    "New_Window",0
 szTitle         byte    "Skadi's Workshop",0
+; test
+sztimertest     byte    "timer",0
+sztimertest2    byte    "a%d",0ah,0
+sztimertestc    byte    "@%c",0ah,0
+sztimertests    byte    "@@%s",0ah,0
+;szbackground    byte    "background.bmp",0
+;szobject        byte    "ship.bmp",0
+szQueue         byte    "Q%d",0ah,0
 
 .data?
 ; start intrf elements
@@ -140,14 +149,6 @@ szRecvMode		byte	32 dup(?)
 ;notefile
 hFile1		    dword	?
 hFile2		    dword	?
-; test
-sztimertest     byte    "timer",0
-sztimertest2    byte    "a%d",0ah,0
-sztimertestc    byte    "@%c",0ah,0
-sztimertests    byte    "@@%s",0ah,0
-;szbackground    byte    "background.bmp",0
-;szobject        byte    "ship.bmp",0
-szQueue         byte    "Q%d",0ah,0
 
 ; window
 hInstance       dword   ?   ;main process handle
@@ -352,7 +353,9 @@ draw_intrf_start	proc stdcall hWnd:dword
 	invoke SelectObject, @thDc, bmpstartbkgnd
 	mov bmpstartbkgndf, eax
 	invoke BitBlt, hhDc, 0, 0, 640, 360, @thDc, 0, 0, SRCCOPY
-
+	.if hasMusic == 0
+		jmp skip_text
+	.endif
 	; get filename without extension
 	mov eax, frontMusicId
 	mul dirNameLen
@@ -388,7 +391,7 @@ draw_intrf_start	proc stdcall hWnd:dword
 	; delete used font
 	invoke SelectObject, hhDc, @hOldFont
 	invoke DeleteObject, @hNewFont
-
+skip_text:
 	invoke BitBlt, @hDc, 0, 0, 640, 360, hhDc, 0, 0, SRCCOPY
 	invoke SelectObject, @thDc, bmpstartbkgndf
 	invoke DeleteDC, @thDc
@@ -427,6 +430,7 @@ get_music_list		proc
 	local	@curMusic:dword
 
 	mov cntMusic, 0
+	mov hasMusic, 1
 	invoke FindFirstFile, offset szMusicDir, addr @ffd
 	mov @hMusicDir, eax
 	.repeat
@@ -451,6 +455,9 @@ dir_not_accept:
 		invoke FindNextFile, @hMusicDir, addr @ffd
 	.until eax == 0
 	invoke FindClose, @hMusicDir
+	.if cntMusic == 0
+		mov hasMusic, 0
+	.endif
 	dec cntMusic
 	;invoke printf, offset sztimertests, offset musicList
 	;invoke printf, offset sztimertest2, cntMusic
@@ -479,17 +486,21 @@ goto_intrf_record	endp
 
 ; switch_music_prev : switch to previous music
 switch_music_prev	proc
-	invoke get_pre_id, frontMusicId
-	mov frontMusicId, eax
-	invoke printf, offset sztimertest2, frontMusicId
+	.if hasMusic == 1
+		invoke get_pre_id, frontMusicId
+		mov frontMusicId, eax
+	.endif
+	invoke printf, offset sztimertest2, eax
 	invoke set_music
 	ret
 switch_music_prev	endp
 
 ; switch_music_next : switch to next music
 switch_music_next	proc
-	invoke get_nxt_id, frontMusicId
-	mov frontMusicId, eax
+	.if hasMusic == 1
+		invoke get_nxt_id, frontMusicId
+		mov frontMusicId, eax
+	.endif
 	invoke printf, offset sztimertest2, frontMusicId
 	invoke set_music
 	ret
